@@ -1,20 +1,39 @@
 MDBoxLayout:
-    orientation: 'vertical'
-    MDScrollView:
+    orientation: 'horizontal'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDScrollView:
+            MDBoxLayout:
+                id: playlist_layout
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: 40
+                    FitImage:
+                        source: ''  # Placeholder for thumbnail URL
+                        size_hint_x: None
+                        width: 40
+                    MDLabel:
+                        text: 'Loading playlists...'
+                        size_hint_y: None
+                        height: 40
+    MDBoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.7
         MDBoxLayout:
-            id: playlist_layout
+            id: tag_management_layout
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 50
+        MDBoxLayout:
+            id: songs_layout
             orientation: 'vertical'
             size_hint_y: None
             height: self.minimum_height
-            BoxLayout:
-                orientation: 'horizontal'
-                size_hint_y: None
-                height: 40
-                FitImage:
-                    source: ''  # Placeholder for thumbnail URL
-                    size_hint_x: None
-                    width: 40
-                MDLabel:
-                    text: 'Loading playlists...'
-                    size_hint_y: None
-                    height: 40
+
+<MDDropDownItem>:
+    id: dropdown_item
+    text: root.text
