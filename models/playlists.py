@@ -2,30 +2,30 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.card import MDCard
-from ytmusicapi import YTMusic
 
 class Playlists:
-    def __init__(self, on_playlist_click):
-        self.playlists = self.fetch()
+    def __init__(self, ytmusic, on_playlist_click):
+        self.ytmusic = ytmusic
+        self.playlists = []
         self.on_playlist_click = on_playlist_click
 
+        self.fetch()
+
     def fetch(self):
-        ytmusic = YTMusic("./browser.json")
-        return ytmusic.get_library_playlists()
+        self.playlists = self.ytmusic.get_library_playlists()
 
     def build(self):
         layout = MDBoxLayout(orientation='vertical', size_hint_y=None, padding=10, spacing=10)
         layout.bind(minimum_height=layout.setter('height'))
 
-        for playlist_data in self.playlists:
-            playlist = Playlist(
-                playlist_id=playlist_data['playlistId'],
-                title=playlist_data['title'],
-                thumbnail_url=playlist_data['thumbnails'][0]['url'],
+        for playlist in self.playlists:
+            playlist_layout = Playlist(
+                playlist_id=playlist['playlistId'],
+                title=playlist['title'],
+                thumbnail_url=playlist['thumbnails'][0]['url'],
                 on_release_callback=self.on_playlist_click
-            )
-            item_layout = playlist.build()
-            layout.add_widget(item_layout)
+            ).build()
+            layout.add_widget(playlist_layout)
 
         return layout
 
@@ -37,14 +37,14 @@ class Playlist:
         self.on_release_callback = on_release_callback
 
     def build(self):
-        playlist_label = MDLabel(text=self.title, size_hint_y=None, height=40)
+        label = MDLabel(text=self.title, size_hint_y=None, height=40)
         thumbnail = FitImage(source=self.thumbnail_url, size_hint_x=None, width=40)
 
-        item_layout = MDBoxLayout(orientation='horizontal', size_hint_y=None, height=40, padding=5)
-        item_layout.add_widget(thumbnail)
-        item_layout.add_widget(playlist_label)
+        layout = MDBoxLayout(orientation='horizontal', size_hint_y=None, height=40, padding=5)
+        layout.add_widget(thumbnail)
+        layout.add_widget(label)
 
         card = MDCard(size_hint_y=None, height=50, on_release=lambda x: self.on_release_callback(self.playlist_id))
-        card.add_widget(item_layout)
+        card.add_widget(layout)
 
         return card

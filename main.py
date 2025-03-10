@@ -4,12 +4,15 @@ from kivymd.uix.scrollview import MDScrollView
 from models.playlists import Playlists
 from models.songs import Songs
 from models.tag_management import TagManagement
+from ytmusicapi import YTMusic
 
 class TagYourTracks(MDApp):
     def build(self):
+        self.ytmusic = YTMusic("./browser.json")
+
         self.main_layout = MDBoxLayout(orientation='horizontal')
 
-        playlist_layout = Playlists(self.on_playlist_click).build()
+        playlist_layout = Playlists(self.ytmusic, self.on_playlist_click).build()
         scroll_view_playlists = MDScrollView()
         scroll_view_playlists.add_widget(playlist_layout)
 
@@ -34,7 +37,7 @@ class TagYourTracks(MDApp):
 
     def on_playlist_click(self, playlist_id):
         self.songs_container.clear_widgets()
-        songs_layout = Songs(playlist_id).build()
+        songs_layout = Songs(self.ytmusic, playlist_id).build()
         scroll_view_songs = MDScrollView()
         scroll_view_songs.add_widget(songs_layout)
         self.songs_container.add_widget(scroll_view_songs)
