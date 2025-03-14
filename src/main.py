@@ -1,7 +1,7 @@
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.bottomnavigation import MDBottomNavigation, MDBottomNavigationItem
-from src.database import Session
+from src.database import Session, init_database
 from src.screens.playlist_screen import PlaylistScreen
 from src.screens.tag_list_screen import TagListScreen
 from src.screens.home_screen import HomeScreen
@@ -10,6 +10,7 @@ from ytmusicapi import YTMusic
 class TagYourTracks(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        init_database()
         self.db = Session()
         self.ytmusic = YTMusic("./browser.json")
         self.playlist_id = None
@@ -48,6 +49,3 @@ class TagYourTracks(MDApp):
         if self.db:
             self.db.close()
             Session.remove()
-
-if __name__ == '__main__':
-    TagYourTracks().run()
