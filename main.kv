@@ -1,6 +1,7 @@
 #:kivy 2.0.0
-#:import MainScreen src.screens.main_screen
+#:import PlaylistScreen src.screens.playlist_screen
 #:import TagListScreen src.screens.tag_list_screen
+#:import HomeScreen src.screens.home_screen
 
 MDBoxLayout:
     orientation: 'horizontal'
@@ -39,16 +40,12 @@ MDBoxLayout:
             height: self.minimum_height
 
 <MDScreenManager>:
-    MainScreen:
-        name: 'main'
+    HomeScreen:
+        name: 'home'
+    PlaylistScreen:
+        name: 'playlist'
     TagListScreen:
         name: 'tag_list'
-
-<MainScreen>:
-    # ...existing code...
-
-<TagListScreen>:
-    # ...existing code...
 
 <MDDropDownItem>:
     id: dropdown_item

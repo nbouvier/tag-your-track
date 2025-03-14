@@ -4,11 +4,11 @@ from kivymd.uix.scrollview import MDScrollView
 from src.components.playlists import Playlists
 from src.components.songs import Songs
 
-class MainScreen(MDScreen):
+class PlaylistScreen(MDScreen):
     def __init__(self, app, **kwargs):
         super().__init__(**kwargs)
         self.app = app
-        self.name = 'main'
+        self.name = 'playlist'
         self.build_layout()
         
     def build_layout(self):

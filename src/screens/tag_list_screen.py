@@ -77,9 +77,12 @@ class TagListScreen(MDScreen):
     def create_tag(self, *args):
         name = self.dialog.content_cls.text
         if name:
-            db.create_tag(self.app.db, name)
-            self.refresh_tags()
+            self.add_tag(name)
         self.dialog.dismiss()
+
+    def add_tag(self, name):
+        db.create_tag(self.app.db, name)
+        self.refresh_tags()
 
     def delete_tag(self, tag):
         db.delete_tag(self.app.db, tag.id)
@@ -88,3 +91,7 @@ class TagListScreen(MDScreen):
     def edit_tag(self, tag):
         # TODO: Implement tag editing if needed
         pass
+
+    def update_tag(self, tag_id, new_name):
+        db.update_tag(self.app.db, tag_id, new_name)
+        self.refresh_tags()
