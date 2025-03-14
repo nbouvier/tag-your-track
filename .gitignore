@@ -1,2 +1,4 @@
 browser.json
 __pycache__
+database.sqlite
+database.sqlite-journal

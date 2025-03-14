@@ -1,11 +1,16 @@
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.menu import MDDropdownMenu
+from api.main import Api
 
 class TagManagement:
     def __init__(self):
-        self.dummy_tags = ["Rock", "Jazz", "Classical", "Pop", "Metal"]
+        self.tags = []
         self.selected_tags = []
+        self.fetch_tags()
+
+    def fetch_tags(self):
+        self.tags = Api.get_tags()
 
     def build(self):
         layout = MDBoxLayout(
@@ -31,11 +36,11 @@ class TagManagement:
     def create_menu(self):
         menu_items = [
             {
-                "text": f"{'✓ ' if tag in self.selected_tags else '  '}{tag}",
+                "text": f"{'✓ ' if tag['id'] in [t['id'] for t in self.selected_tags] else '  '}{tag['name']}",
                 "viewclass": "OneLineListItem",
                 "height": 50,
                 "on_release": lambda x=tag: self.toggle_tag(x),
-            } for tag in self.dummy_tags
+            } for tag in self.tags
         ]
 
         self.dropdown = MDDropdownMenu(
@@ -50,15 +55,16 @@ class TagManagement:
         self.dropdown.open()
 
     def toggle_tag(self, tag):
-        if tag in self.selected_tags:
-            self.selected_tags.remove(tag)
+        tag_ids = [t['id'] for t in self.selected_tags]
+        if tag['id'] in tag_ids:
+            self.selected_tags = [t for t in self.selected_tags if t['id'] != tag['id']]
         else:
             self.selected_tags.append(tag)
         
         if not self.selected_tags:
             self.tag_button.text = "Select Tags"
         else:
-            self.tag_button.text = f"Tags: {', '.join(self.selected_tags)}"
+            self.tag_button.text = f"Tags: {', '.join(t['name'] for t in self.selected_tags)}"
         
         self.dropdown.dismiss()  # Dismiss the current menu
         self.create_menu()  # Create new menu with updated items
