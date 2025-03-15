@@ -3,32 +3,6 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.card import MDCard
 
-class Playlists:
-    def __init__(self, ytmusic, on_playlist_click):
-        self.ytmusic = ytmusic
-        self.playlists = []
-        self.on_playlist_click = on_playlist_click
-
-        self.fetch()
-
-    def fetch(self):
-        self.playlists = self.ytmusic.get_library_playlists()
-
-    def build(self):
-        layout = MDBoxLayout(orientation='vertical', size_hint_y=None, padding=10, spacing=10)
-        layout.bind(minimum_height=layout.setter('height'))
-
-        for playlist in self.playlists:
-            playlist_layout = Playlist(
-                playlist_id=playlist['playlistId'],
-                title=playlist['title'],
-                thumbnail_url=playlist['thumbnails'][0]['url'],
-                on_release_callback=self.on_playlist_click
-            ).build()
-            layout.add_widget(playlist_layout)
-
-        return layout
-
 class Playlist:
     def __init__(self, playlist_id, title, thumbnail_url, on_release_callback):
         self.playlist_id = playlist_id

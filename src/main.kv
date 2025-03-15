@@ -1,52 +1,30 @@
-#:kivy 2.0.0
-#:import PlaylistScreen src.screens.playlist_screen
-#:import TagListScreen src.screens.tag_list_screen
-#:import HomeScreen src.screens.home_screen
+#:include src/screens/home/layout.kv
+#:include src/screens/playlists/layout.kv
+#:include src/screens/tags/layout.kv
 
 MDBoxLayout:
-    orientation: 'horizontal'
-    MDBoxLayout:
-        orientation: 'vertical'
-        MDScrollView:
-            MDBoxLayout:
-                id: playlist_layout
-                orientation: 'vertical'
-                size_hint_y: None
-                height: self.minimum_height
-                BoxLayout:
-                    orientation: 'horizontal'
-                    size_hint_y: None
-                    height: 40
-                    FitImage:
-                        source: ''  # Placeholder for thumbnail URL
-                        size_hint_x: None
-                        width: 40
-                    MDLabel:
-                        text: 'Loading playlists...'
-                        size_hint_y: None
-                        height: 40
-    MDBoxLayout:
-        orientation: 'vertical'
-        size_hint_x: 0.7
-        MDBoxLayout:
-            id: tag_management_layout
-            orientation: 'vertical'
-            size_hint_y: None
-            height: 50
-        MDBoxLayout:
-            id: songs_layout
-            orientation: 'vertical'
-            size_hint_y: None
-            height: self.minimum_height
+    orientation: 'vertical'
 
-<MDScreenManager>:
-    HomeScreen:
-        name: 'home'
-    PlaylistScreen:
-        name: 'playlist'
-    TagListScreen:
-        name: 'tag_list'
+    MDScreenManager:
+        id: screen_manager
 
-<MDDropDownItem>:
-    id: dropdown_item
-    text: root.text
+    MDBottomNavigation:
+        panel_color: app.theme_cls.primary_color
+
+        MDBottomNavigationItem:
+            name: 'home'
+            text: 'Home'
+            icon: 'home'
+            on_tab_press: app.switch_screen('home')
+
+        MDBottomNavigationItem:
+            name: 'playlists'
+            text: 'Playlists'
+            icon: 'playlist-music'
+            on_tab_press: app.switch_screen('playlists')
+
+        MDBottomNavigationItem:
+            name: 'tags'
+            text: 'Tags'
+            icon: 'tag'
+            on_tab_press: app.switch_screen('tags')

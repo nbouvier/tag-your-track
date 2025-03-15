@@ -1,51 +1,37 @@
 from kivymd.app import MDApp
-from kivymd.uix.screenmanager import MDScreenManager
-from kivymd.uix.bottomnavigation import MDBottomNavigation, MDBottomNavigationItem
-from src.database import Session, init_database
-from src.screens.playlist_screen import PlaylistScreen
-from src.screens.tag_list_screen import TagListScreen
-from src.screens.home_screen import HomeScreen
+from kivy.lang import Builder
+from kivy.core.window import Window
 from ytmusicapi import YTMusic
+
+from src.screens.home.screen import Home
+from src.screens.playlists.screen import Playlists
+from src.screens.tags.screen import Tags
+from src.database import init_database
 
 class TagYourTracks(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        init_database()
-        self.db = Session()
-        self.ytmusic = YTMusic("./browser.json")
-        self.playlist_id = None
-        self.screen_manager = MDScreenManager()
-        self.bottom_navigation = MDBottomNavigation()
-        self.init_playlist_id()
-
-    def init_playlist_id(self):
-        playlists = self.ytmusic.get_library_playlists()
-        playlist = next((p for p in playlists if p['title'] == 'TagYourTrack'), None)
+        self.title = "Tag Your Tracks"
         
-        if not playlist:
-            self.playlist_id = self.ytmusic.create_playlist('TagYourTrack', 'Playlist for tagged songs')
-        else:
-            self.playlist_id = playlist['playlistId']
+        self.db = init_database()
+        self.ytmusic = YTMusic("./browser.json")
+        
+        self.playlist_id = "PLn89X9IolLN-ye-FlqG7-IX9bSnpCr3-z"
 
     def build(self):
-        # Create bottom navigation items
-        home_item = MDBottomNavigationItem(name='home', text='Home', icon='home')
-        home_item.add_widget(HomeScreen(self))
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Purple"
+        
+        # Load KV file
+        root = Builder.load_file('src/main.kv')
+        
+        # Initialize screens
+        screen_manager = root.ids.screen_manager
+        screen_manager.add_widget(Home(app=self, name='home'))
+        screen_manager.add_widget(Playlists(app=self, name='playlists'))
+        screen_manager.add_widget(Tags(app=self, name='tags'))
+        
+        return root
 
-        playlist_item = MDBottomNavigationItem(name='playlists', text='Playlists', icon='playlist-music')
-        playlist_item.add_widget(PlaylistScreen(self))
-
-        tags_item = MDBottomNavigationItem(name='tags', text='Tags', icon='tag')
-        tags_item.add_widget(TagListScreen(self))
-
-        # Add items to bottom navigation
-        self.bottom_navigation.add_widget(home_item)
-        self.bottom_navigation.add_widget(playlist_item)
-        self.bottom_navigation.add_widget(tags_item)
-
-        return self.bottom_navigation
-
-    def on_stop(self):
-        if self.db:
-            self.db.close()
-            Session.remove()
+    def switch_screen(self, screen_name):
+        self.root.ids.screen_manager.current = screen_name

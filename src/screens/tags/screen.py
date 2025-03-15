@@ -5,42 +5,19 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import MDList, OneLineIconListItem
 from kivymd.uix.textfield import MDTextField
 from sqlalchemy.orm import Session
-from .. import db
+import src.db as db
 
-class TagListScreen(MDScreen):
+class Tags(MDScreen):
     def __init__(self, app, **kwargs):
-        super().__init__(**kwargs)
         self.app = app
-        self.name = "tag_list"
-        self.build()
-
-    def build(self):
-        layout = MDBoxLayout(orientation='vertical', padding=10, spacing=10)
+        super().__init__(**kwargs)
         
-        # Header with back button and add button
-        header = MDBoxLayout(
-            orientation='horizontal',
-            size_hint_y=None,
-            height=50
-        )
-        
-        add_button = MDIconButton(
-            icon="plus",
-            on_release=self.show_create_dialog
-        )
-        
-        header.add_widget(add_button)
-        
-        # Tag list
-        self.tag_list = MDList()
+    def on_kv_post(self, base_widget):
+        """Called after kv file is loaded"""
         self.refresh_tags()
-        
-        layout.add_widget(header)
-        layout.add_widget(self.tag_list)
-        self.add_widget(layout)
 
     def refresh_tags(self):
-        self.tag_list.clear_widgets()
+        self.ids.tag_list.clear_widgets()
         tags = db.get_all_tags(self.app.db)
         for tag in tags:
             item = OneLineIconListItem(
@@ -52,7 +29,7 @@ class TagListScreen(MDScreen):
                 on_release=lambda x, t=tag: self.delete_tag(t)
             )
             item.add_widget(delete_button)
-            self.tag_list.add_widget(item)
+            self.ids.tag_list.add_widget(item)
 
     def show_create_dialog(self, *args):
         self.dialog = MDDialog(

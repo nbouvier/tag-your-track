@@ -19,6 +19,7 @@ def run_migrations():
 def init_database():
     """Initialize the database, create tables and run migrations"""
     run_migrations()
+    return Session()
 
 print(f"Using database at: {DATABASE_PATH}")
 

@@ -1,0 +1,21 @@
+<Tags>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
+
+            MDIconButton:
+                icon: "plus"
+                on_release: root.show_create_dialog()
+
+        MDList:
+            id: tag_list
+
+<MDDropDownItem>:
+    id: dropdown_item
+    text: root.text

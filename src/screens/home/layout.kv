@@ -1,0 +1,23 @@
+<Home>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+
+        MDTextField:
+            id: tag_field
+            text: "Select Tag"
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            size_hint_x: 0.8
+            readonly: True
+            on_focus: root.open_tag_list(self, args[1])
+
+        MDScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDBoxLayout:
+                id: songs_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
