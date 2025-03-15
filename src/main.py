@@ -8,6 +8,9 @@ from src.screens.playlists.screen import Playlists
 from src.screens.tags.screen import Tags
 from src.database import init_database
 
+PLAYLIST_NAME = "TagYourTracks"
+PLAYLIST_DESCRIPTION = "Your tagged tracks playlist"
+
 class TagYourTracks(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -16,7 +19,13 @@ class TagYourTracks(MDApp):
         self.db = init_database()
         self.ytmusic = YTMusic("./browser.json")
         
-        self.playlist_id = "PLn89X9IolLN-ye-FlqG7-IX9bSnpCr3-z"
+        self.playlist_id = self.init_playlist_id()
+
+    def init_playlist_id(self):
+        playlists = self.ytmusic.get_library_playlists()
+        playlist = next(iter([p for p in playlists if p['title'] == PLAYLIST_NAME]), None)
+        
+        return playlist['playlistId'] if playlist else self.ytmusic.create_playlist(PLAYLIST_NAME, PLAYLIST_DESCRIPTION)
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
