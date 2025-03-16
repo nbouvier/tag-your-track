@@ -1,4 +1,4 @@
-from .song import Song
+from .track import Track
 
 class Playlist:
     def __init__(self, data, ytmusic=None, loaded=False):
@@ -8,7 +8,7 @@ class Playlist:
 
     def load(self):
         self.data = self.ytmusic.get_playlist(self.get_id())
-        self.tracks = [Song(s) for s in self.data['tracks']]
+        self.tracks = [Track(t) for t in self.data['tracks']]
         self.loaded = True
 
     def get_id(self):

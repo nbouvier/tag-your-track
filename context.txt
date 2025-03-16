@@ -1,5 +1,5 @@
 Use kivyMD and ytmusicapi python library.
 The whole layout should be defined in .kv files, not in .py files.
-In src/classes you will find classes like tags, songs, playlists and maybe more.
+In src/classes you will find classes like tags, tracks, playlists and maybe more.
 In src/screens you will find all the application screens .py and .kv files.
 In src/db you will find all the db interactions.

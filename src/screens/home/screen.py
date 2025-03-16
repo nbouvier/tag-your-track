@@ -2,7 +2,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
 import src.db as db
 from .import_dialog.component import ImportDialog
-from .song_card.component import SongCard
+from .track_card.component import TrackCard
 
 class HomeScreen(MDScreen):
     def __init__(self, app, **kwargs):
@@ -13,16 +13,16 @@ class HomeScreen(MDScreen):
     def on_kv_post(self, base_widget):
         """Called after kv file is loaded"""
         self.load_tags()
-        self.load_songs()
+        self.load_tracks()
 
     def load_tags(self):
         self.tags = db.get_all_tags(self.app.db)
 
-    def load_songs(self):
-        self.ids.songs_container.clear_widgets()
-        for song in self.app.playlist.get_tracks():
-            song_card = SongCard(song)
-            self.ids.songs_container.add_widget(song_card)
+    def load_tracks(self):
+        self.ids.tracks_container.clear_widgets()
+        for track in self.app.playlist.get_tracks():
+            track_card = TrackCard(track)
+            self.ids.tracks_container.add_widget(track_card)
 
     def on_pre_enter(self, *args):
         """Called when screen is about to be entered"""
@@ -50,7 +50,7 @@ class HomeScreen(MDScreen):
     def on_tag_select(self, tag_name):
         self.ids.tag_field.text = tag_name
         self.tag_list.dismiss()
-        # TODO: Filter songs by selected tag
+        # TODO: Filter tracks by selected tag
 
     def import_playlist(self, playlist):
         track_ids = []

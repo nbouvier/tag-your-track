@@ -1,4 +1,4 @@
-class Song:
+class Track:
     def __init__(self, data):
         self.data = data
 
