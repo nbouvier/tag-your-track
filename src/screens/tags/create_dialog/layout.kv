@@ -1,0 +1,15 @@
+#:import MDFlatButton kivymd.uix.button.MDFlatButton
+
+<CreateDialog>
+    title: "Create New Tag"
+    type: "custom"
+    size_hint_x: 0.9
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        size_hint_y: None
+
+        MDTextField:
+            id: name_input
+            hint_text: "Tag name"

@@ -1,3 +1,6 @@
+#:include src/screens/tags/create_dialog/layout.kv
+#:include src/screens/tags/tag_card/layout.kv
+
 <TagsScreen>:
     MDBoxLayout:
         orientation: 'vertical'
@@ -11,11 +14,7 @@
 
             MDIconButton:
                 icon: "plus"
-                on_release: root.show_create_dialog()
+                on_release: root.create_dialog.open()
 
         MDList:
             id: tag_list
-
-<MDDropDownItem>:
-    id: dropdown_item
-    text: root.text

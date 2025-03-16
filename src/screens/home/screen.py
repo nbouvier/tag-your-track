@@ -57,9 +57,6 @@ class HomeScreen(MDScreen):
         self.tag_list.dismiss()
         # TODO: Filter songs by selected tag
 
-    def show_import_dialog(self):
-        self.import_dialog.open()
-
     def import_playlists(self, selected_playlists):
         track_ids = []
         for playlist_id in selected_playlists:

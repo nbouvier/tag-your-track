@@ -1,15 +1,14 @@
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDIconButton, MDFlatButton
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.list import MDList, OneLineIconListItem
-from kivymd.uix.textfield import MDTextField
-from sqlalchemy.orm import Session
+from kivymd.uix.button import MDIconButton
+from kivymd.uix.list import OneLineIconListItem
 import src.db as db
+from .create_dialog.component import CreateDialog
+from .tag_card.component import TagCard
 
 class TagsScreen(MDScreen):
     def __init__(self, app, **kwargs):
         self.app = app
+        self.create_dialog = CreateDialog(app, self.create_tag)
         super().__init__(**kwargs)
         
     def on_kv_post(self, base_widget):
@@ -18,57 +17,20 @@ class TagsScreen(MDScreen):
 
     def refresh_tags(self):
         self.ids.tag_list.clear_widgets()
+        
         tags = db.get_all_tags(self.app.db)
         for tag in tags:
-            item = OneLineIconListItem(
-                text=tag.name,
-                on_release=lambda x, t=tag: self.edit_tag(t)
-            )
-            delete_button = MDIconButton(
-                icon="trash-can",
-                on_release=lambda x, t=tag: self.delete_tag(t)
-            )
-            item.add_widget(delete_button)
-            self.ids.tag_list.add_widget(item)
+            tag_card = TagCard(tag.id, tag.name, self.delete_tag)
+            self.ids.tag_list.add_widget(tag_card)
 
-    def show_create_dialog(self, *args):
-        self.dialog = MDDialog(
-            title="Create New Tag",
-            type="custom",
-            content_cls=MDTextField(
-                hint_text="Tag name"
-            ),
-            buttons=[
-                MDFlatButton(
-                    text="CANCEL",
-                    on_release=lambda x: self.dialog.dismiss()
-                ),
-                MDFlatButton(
-                    text="CREATE",
-                    on_release=self.create_tag
-                ),
-            ],
-        )
-        self.dialog.open()
-
-    def create_tag(self, *args):
-        name = self.dialog.content_cls.text
-        if name:
-            self.add_tag(name)
-        self.dialog.dismiss()
-
-    def add_tag(self, name):
+    def create_tag(self, name):
         db.create_tag(self.app.db, name)
         self.refresh_tags()
 
-    def delete_tag(self, tag):
-        db.delete_tag(self.app.db, tag.id)
-        self.refresh_tags()
-
-    def edit_tag(self, tag):
-        # TODO: Implement tag editing if needed
-        pass
-
     def update_tag(self, tag_id, new_name):
         db.update_tag(self.app.db, tag_id, new_name)
+        self.refresh_tags()
+
+    def delete_tag(self, tag_id):
+        db.delete_tag(self.app.db, tag_id)
         self.refresh_tags()
