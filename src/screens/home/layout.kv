@@ -1,7 +1,8 @@
 #:include src/screens/home/import_dialog/layout.kv
-#:include src/screens/home/playlist_card/layout.kv
+#:include src/screens/home/import_playlist_card/layout.kv
+#:include src/screens/home/song_card/layout.kv
 
-<Home>:
+<HomeScreen>:
     MDBoxLayout:
         orientation: 'vertical'
         spacing: 10
@@ -32,3 +33,4 @@
                 orientation: 'vertical'
                 size_hint_y: None
                 height: self.minimum_height
+                spacing: "8dp"

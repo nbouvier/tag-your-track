@@ -3,9 +3,9 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from ytmusicapi import YTMusic
 
-from src.screens.home.screen import Home
-from src.screens.playlists.screen import Playlists
-from src.screens.tags.screen import Tags
+from src.screens.home.screen import HomeScreen
+from src.screens.playlists.screen import PlaylistsScreen
+from src.screens.tags.screen import TagsScreen
 from src.database import init_database
 
 PLAYLIST_NAME = "TagYourTracks"
@@ -37,9 +37,9 @@ class TagYourTracks(MDApp):
         
         # Initialize screens
         screen_manager = root.ids.screen_manager
-        screen_manager.add_widget(Home(app=self, name='home'))
-        screen_manager.add_widget(Playlists(app=self, name='playlists'))
-        screen_manager.add_widget(Tags(app=self, name='tags'))
+        screen_manager.add_widget(HomeScreen(app=self, name='home'))
+        screen_manager.add_widget(PlaylistsScreen(app=self, name='playlists'))
+        screen_manager.add_widget(TagsScreen(app=self, name='tags'))
         
         return root
 

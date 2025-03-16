@@ -1,10 +1,10 @@
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
-from src.classes.song import Song
 import src.db as db
 from .import_dialog.component import ImportDialog
+from .song_card.component import SongCard
 
-class Home(MDScreen):
+class HomeScreen(MDScreen):
     def __init__(self, app, **kwargs):
         self.app = app
         self.import_dialog = ImportDialog(app, self.import_playlists)
@@ -23,11 +23,11 @@ class Home(MDScreen):
 
         songs = self.app.ytmusic.get_playlist(self.app.playlist_id)['tracks']
         for song in songs:
-            song_layout = Song(
+            song_card = SongCard(
                 title=song['title'],
                 artist=song.get('artists', [{'name': 'Unknown'}])[0]['name']
-            ).build()
-            self.ids.songs_container.add_widget(song_layout)
+            )
+            self.ids.songs_container.add_widget(song_card)
 
     def on_pre_enter(self, *args):
         """Called when screen is about to be entered"""

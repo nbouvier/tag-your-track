@@ -7,7 +7,7 @@ from kivymd.uix.textfield import MDTextField
 from sqlalchemy.orm import Session
 import src.db as db
 
-class Tags(MDScreen):
+class TagsScreen(MDScreen):
     def __init__(self, app, **kwargs):
         self.app = app
         super().__init__(**kwargs)

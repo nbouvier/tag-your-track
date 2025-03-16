@@ -1,6 +1,7 @@
-<PlaylistCard>:
+<ImportPlaylistCard>:
     size_hint_y: None
     height: "72dp"
+    style: "elevated"
 
     MDCheckbox:
         id: checkbox
@@ -16,10 +17,10 @@
         padding: "12dp", 0, 0, 0
 
         MDLabel:
-            text: root.text
+            text: root.title
             font_style: 'Subtitle1'
         
         MDLabel:
-            text: root.secondary_text
+            text: root.tracks
             font_style: 'Caption'
             theme_text_color: "Secondary"

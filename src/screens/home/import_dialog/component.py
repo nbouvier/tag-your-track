@@ -1,7 +1,7 @@
 from kivy.core.window import Window
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-from ..playlist_card.component import PlaylistCard
+from ..import_playlist_card.component import ImportPlaylistCard
 
 class ImportDialog(MDDialog):
     def __init__(self, app, on_import_callback, **kwargs):
@@ -18,12 +18,12 @@ class ImportDialog(MDDialog):
         self.ids.playlist_list.clear_widgets()
 
         for playlist in self.app.playlists:
-            item = PlaylistCard(
-                playlist_id=playlist['playlistId'],
-                text=playlist['title'],
-                secondary_text=f"{playlist.get('count', '0')} tracks"
+            playlist_card = ImportPlaylistCard(
+                playlist['playlistId'],
+                playlist['title'],
+                f"{playlist.get('count', '0')} tracks"
             )
-            self.ids.playlist_list.add_widget(item)
+            self.ids.playlist_list.add_widget(playlist_card)
     
         # Bug fixing dialog height
         height = Window.height * 0.7
