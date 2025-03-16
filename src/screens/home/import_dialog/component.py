@@ -1,7 +1,7 @@
 from kivy.core.window import Window
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-from ..import_playlist_card.component import ImportPlaylistCard
+from src.screens.home.import_playlist_card.component import ImportPlaylistCard
 
 class ImportDialog(MDDialog):
     def __init__(self, app, on_import_callback, **kwargs):

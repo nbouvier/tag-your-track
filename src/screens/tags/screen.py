@@ -2,8 +2,8 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.list import OneLineIconListItem
 import src.db as db
-from .create_dialog.component import CreateDialog
-from .tag_card.component import TagCard
+from src.screens.tags.create_dialog.component import CreateDialog
+from src.screens.tags.tag_card.component import TagCard
 
 class TagsScreen(MDScreen):
     def __init__(self, app, **kwargs):

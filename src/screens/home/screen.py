@@ -1,8 +1,8 @@
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
 import src.db as db
-from .import_dialog.component import ImportDialog
-from .track_card.component import TrackCard
+from src.screens.home.import_dialog.component import ImportDialog
+from src.screens.home.track_card.component import TrackCard
 
 class HomeScreen(MDScreen):
     def __init__(self, app, **kwargs):

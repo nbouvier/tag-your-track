@@ -1,4 +1,4 @@
-from .track import Track
+from src.classes.track import Track
 
 class Playlist:
     def __init__(self, data, ytmusic=None, loaded=False):

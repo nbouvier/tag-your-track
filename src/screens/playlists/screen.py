@@ -1,7 +1,7 @@
 from kivymd.uix.screen import MDScreen
 from src.classes.track import Track
-from .playlist_card.component import PlaylistCard
-from .playlist_track_card.component import PlaylistTrackCard
+from src.screens.playlists.playlist_card.component import PlaylistCard
+from src.screens.playlists.playlist_track_card.component import PlaylistTrackCard
 
 class PlaylistsScreen(MDScreen):
     def __init__(self, app, **kwargs):
