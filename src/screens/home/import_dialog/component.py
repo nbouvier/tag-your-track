@@ -8,10 +8,7 @@ class ImportDialog(MDDialog):
         self.app = app
         self.on_import_callback = on_import_callback
 
-        buttons = [
-            MDFlatButton(text="CANCEL", on_release=lambda x: self.dismiss()),
-            MDFlatButton(text="IMPORT", on_release=lambda x: self.on_import()),
-        ]
+        buttons = [MDFlatButton(text="Close", on_release=lambda x: self.dismiss())]
         super().__init__(buttons=buttons, auto_dismiss=False, **kwargs)
         
     def on_pre_open(self):
@@ -19,9 +16,11 @@ class ImportDialog(MDDialog):
 
         for playlist in self.app.playlists:
             playlist_card = ImportPlaylistCard(
-                playlist['playlistId'],
-                playlist['title'],
-                f"{playlist.get('count', '0')} tracks"
+                playlist_id=playlist['playlistId'],
+                title=playlist['title'],
+                tracks=playlist['count'],
+                thumbnail=playlist['thumbnails'][0]['url'],
+                on_import_callback=self.on_import_callback
             )
             self.ids.playlist_list.add_widget(playlist_card)
     
@@ -29,8 +28,3 @@ class ImportDialog(MDDialog):
         height = Window.height * 0.7
         self.children[1].children[2].height = height
         self.height = height
-
-    def on_import(self):
-        playlist_ids = [p.playlist_id for p in self.ids.playlist_list.children if p.checkbox]
-        self.on_import_callback(playlist_ids)
-        self.dismiss()

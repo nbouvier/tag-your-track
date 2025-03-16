@@ -16,11 +16,5 @@
                 height: self.minimum_height
             
         MDScrollView:
-            do_scroll_x: False
-            do_scroll_y: True
-        
-            MDBoxLayout:
+            MDList:
                 id: songs_container
-                orientation: 'vertical'
-                size_hint_y: None
-                height: self.minimum_height

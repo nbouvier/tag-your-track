@@ -1,23 +1,10 @@
-<TagCard>    
-    size_hint_y: None
-    height: "68dp"
-    md_bg_color: app.theme_cls.bg_light
-    padding: "8dp"
-    radius: "4dp"
-    style: "elevated"
+<TagCard>
+    text: root.name
+    secondary_text: "track number to come"
+    
+    IconLeftWidget:
+        icon: "circle"
 
-    MDBoxLayout:
-        orientation: 'vertical'
-        spacing: "4dp"
-        padding: "8dp"
-
-        MDLabel:
-            text: root.name
-            font_style: "Subtitle1"
-            theme_text_color: "Primary"
-            size_hint_y: None
-            height: self.texture_size[1]
-
-        MDIconButton:
-            icon: "trash-can"
-            on_release: root.delete_tag_callback(root.tag_id)
+    IconRightWidget:
+        icon: "dots-vertical"
+        on_release: root.on_delete_callback(root.tag_id)

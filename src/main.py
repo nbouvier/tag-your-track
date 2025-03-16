@@ -20,7 +20,7 @@ class TagYourTracks(MDApp):
         self.ytmusic = YTMusic("./browser.json")
         
         self.playlist_id = self.init_playlist_id()
-        self.playlists = self.ytmusic.get_library_playlists()
+        self.playlists = [p for p in self.ytmusic.get_library_playlists() if p['playlistId'] not in ('LM', 'SE')]
 
     def init_playlist_id(self):
         playlists = self.ytmusic.get_library_playlists()

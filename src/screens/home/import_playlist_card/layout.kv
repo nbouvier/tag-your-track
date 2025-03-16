@@ -1,26 +1,12 @@
 <ImportPlaylistCard>:
-    size_hint_y: None
-    height: "72dp"
-    style: "elevated"
+    text: root.title
+    secondary_text: root.tracks + " tracks"
+    tertiary_text: "unimported tracks to come"
+    on_release: root.on_release_callback(root.playlist_id)
 
-    MDCheckbox:
-        id: checkbox
-        size_hint: None, None
-        size: "48dp", "48dp"
-        pos_hint: {'center_y': .5}
-        on_active: root.checkbox = self.active
+    ImageLeftWidget:
+        source: root.thumbnail
 
-    MDBoxLayout:
-        orientation: 'vertical'
-        adaptive_height: True
-        pos_hint: {'center_y': .5}
-        padding: "12dp", 0, 0, 0
-
-        MDLabel:
-            text: root.title
-            font_style: 'Subtitle1'
-        
-        MDLabel:
-            text: root.tracks
-            font_style: 'Caption'
-            theme_text_color: "Secondary"
+    IconRightWidget:
+        icon: "playlist-plus"
+        on_release: root.on_import_callback(root.playlist_id)

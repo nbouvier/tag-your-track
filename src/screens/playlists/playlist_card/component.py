@@ -1,9 +1,10 @@
-from kivymd.uix.card import MDCard
+from kivymd.uix.list import TwoLineAvatarListItem
 
-class PlaylistCard(MDCard):
-    def __init__(self, playlist_id, title, thumbnail_url, on_release_callback, **kwargs):
+class PlaylistCard(TwoLineAvatarListItem):
+    def __init__(self, playlist_id, title, tracks, thumbnail, on_release_callback, **kwargs):
         self.playlist_id = playlist_id
         self.title = title
-        self.thumbnail_url = thumbnail_url
+        self.tracks = tracks
+        self.thumbnail = thumbnail
         self.on_release_callback = on_release_callback
         super().__init__(**kwargs)

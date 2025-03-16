@@ -19,6 +19,7 @@ class PlaylistsScreen(MDScreen):
             playlist_card = PlaylistCard(
                 playlist['playlistId'],
                 playlist['title'],
+                playlist['count'],
                 playlist['thumbnails'][0]['url'],
                 self.load_songs
             )
@@ -31,6 +32,7 @@ class PlaylistsScreen(MDScreen):
         for song in songs:
             song_card = PlaylistSongCard(
                 title=song['title'],
-                artist=song.get('artists', [{'name': 'Unknown'}])[0]['name']
+                artist=song.get('artists', [{'name': 'Unknown'}])[0]['name'],
+                thumbnail=song['thumbnails'][0]['url']
             )
             self.ids.songs_container.add_widget(song_card)

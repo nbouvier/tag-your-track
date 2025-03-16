@@ -7,8 +7,8 @@ class CreateDialog(MDDialog):
         self.create_tag_callback = create_tag_callback
 
         buttons=[
-            MDFlatButton(text="CANCEL", on_release=lambda x: self.dismiss()),
-            MDFlatButton(text="CREATE", on_release=self.create_tag),
+            MDFlatButton(text="Cancel", on_release=lambda x: self.dismiss()),
+            MDFlatButton(text="Create", on_release=self.create_tag),
         ]
         super().__init__(buttons=buttons, auto_dismiss=False, **kwargs)
 
