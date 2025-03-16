@@ -1,0 +1,18 @@
+<ImportDialog>:
+    title: "Select Playlists to Import"
+    type: "custom"
+    size_hint: 0.9, 0.7
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "16dp"
+        spacing: "8dp"
+    
+        MDScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDList:
+                id: playlist_list
+                padding: 0
+                spacing: "8dp"

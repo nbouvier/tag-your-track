@@ -73,3 +73,17 @@ def remove_tags_from_track(db: Session, track_id: int, tag_ids: List[int]) -> bo
     )
     db.commit()
     return result.rowcount > 0
+
+def create_track_if_not_exists(db: Session, youtube_id: str, title: str, artist: str) -> Track:
+    """Create a track if it doesn't exist"""
+    track = db.query(Track).filter(Track.youtube_id == youtube_id).first()
+    exists = track is not None
+    
+    if not exists:
+        track = Track(youtube_id=youtube_id, title=title, artist=artist)
+        db.add(track)
+    
+    db.commit()
+    db.refresh(track)
+
+    return (track, not exists)

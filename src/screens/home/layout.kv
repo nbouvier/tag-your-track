@@ -1,16 +1,27 @@
+#:include src/screens/home/import_dialog/layout.kv
+#:include src/screens/home/playlist_card/layout.kv
+
 <Home>:
     MDBoxLayout:
         orientation: 'vertical'
         spacing: 10
         padding: 10
 
-        MDTextField:
-            id: tag_field
-            text: "Select Tag"
-            pos_hint: {'center_x': .5, 'center_y': .5}
-            size_hint_x: 0.8
-            readonly: True
-            on_focus: root.open_tag_list(self, args[1])
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: 10
+
+            MDTextField:
+                id: tag_field
+                text: "Select Tag"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                size_hint_x: 0.8
+                readonly: True
+                on_focus: root.open_tag_list(self, args[1])
+
+            MDIconButton:
+                icon: "playlist-plus"
+                on_release: root.show_import_dialog()
 
         MDScrollView:
             do_scroll_x: False

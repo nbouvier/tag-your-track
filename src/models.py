@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Table
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Table, Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 
@@ -22,6 +22,8 @@ class Track(Base):
     note = Column(String)
     youtube_id = Column(String)
     created_at = Column(DateTime, default=func.now())
+
+Index('ix_tracks_youtube_id', Track.youtube_id, unique=True)
 
 class Tag(Base):
     __tablename__ = 'tags'

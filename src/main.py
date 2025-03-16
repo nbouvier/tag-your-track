@@ -20,6 +20,7 @@ class TagYourTracks(MDApp):
         self.ytmusic = YTMusic("./browser.json")
         
         self.playlist_id = self.init_playlist_id()
+        self.playlists = self.ytmusic.get_library_playlists()
 
     def init_playlist_id(self):
         playlists = self.ytmusic.get_library_playlists()

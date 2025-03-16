@@ -1,0 +1,25 @@
+<PlaylistCard>:
+    size_hint_y: None
+    height: "72dp"
+
+    MDCheckbox:
+        id: checkbox
+        size_hint: None, None
+        size: "48dp", "48dp"
+        pos_hint: {'center_y': .5}
+        on_active: root.checkbox = self.active
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height: True
+        pos_hint: {'center_y': .5}
+        padding: "12dp", 0, 0, 0
+
+        MDLabel:
+            text: root.text
+            font_style: 'Subtitle1'
+        
+        MDLabel:
+            text: root.secondary_text
+            font_style: 'Caption'
+            theme_text_color: "Secondary"

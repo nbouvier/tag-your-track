@@ -16,8 +16,7 @@ class Playlists(MDScreen):
     def load_playlists(self):
         self.ids.playlists_container.clear_widgets()
 
-        playlists = self.app.ytmusic.get_library_playlists()
-        for playlist in playlists:
+        for playlist in self.app.playlists:
             playlist_layout = Playlist(
                 playlist_id=playlist['playlistId'],
                 title=playlist['title'],
