@@ -1,12 +1,11 @@
 <ImportPlaylistCard>:
-    text: root.title
-    secondary_text: root.tracks + " tracks"
+    text: root.playlist.get_title()
+    secondary_text: root.playlist.get_track_count() + " tracks"
     tertiary_text: "unimported tracks to come"
-    on_release: root.on_release_callback(root.playlist_id)
 
     ImageLeftWidget:
-        source: root.thumbnail
+        source: root.playlist.get_thumbnail()
 
     IconRightWidget:
         icon: "playlist-plus"
-        on_release: root.on_import_callback(root.playlist_id)
+        on_release: root.on_import_callback(root.playlist)

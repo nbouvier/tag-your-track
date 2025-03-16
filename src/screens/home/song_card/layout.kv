@@ -1,10 +1,10 @@
 <SongCard>
-    text: root.title
-    secondary_text: root.artist
+    text: root.track.get_title()
+    secondary_text: root.track.get_artists()
     tertiary_text: "tags to come"
 
     ImageLeftWidget:
-        source: root.thumbnail
+        source: root.track.get_thumbnail()
 
     IconRightWidget:
         icon: "dots-vertical"

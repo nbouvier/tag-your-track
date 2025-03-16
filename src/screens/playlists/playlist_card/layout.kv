@@ -1,7 +1,7 @@
 <PlaylistCard>:
-    text: root.title
-    secondary_text: root.tracks + " tracks"
-    on_release: root.on_release_callback(root.playlist_id)
+    text: root.playlist.get_title()
+    secondary_text: root.playlist.get_track_count() + " tracks"
+    on_release: root.on_release_callback(root.playlist)
 
     ImageLeftWidget:
-        source: root.thumbnail
+        source: root.playlist.get_thumbnail()

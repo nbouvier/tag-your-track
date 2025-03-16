@@ -14,25 +14,12 @@ class PlaylistsScreen(MDScreen):
 
     def load_playlists(self):
         self.ids.playlists_container.clear_widgets()
-
         for playlist in self.app.playlists:
-            playlist_card = PlaylistCard(
-                playlist['playlistId'],
-                playlist['title'],
-                playlist['count'],
-                playlist['thumbnails'][0]['url'],
-                self.load_songs
-            )
+            playlist_card = PlaylistCard(playlist, self.load_songs)
             self.ids.playlists_container.add_widget(playlist_card)
 
-    def load_songs(self, playlist_id):
+    def load_songs(self, playlist):
         self.ids.songs_container.clear_widgets()
-
-        songs = self.app.ytmusic.get_playlist(playlist_id)['tracks']
-        for song in songs:
-            song_card = PlaylistSongCard(
-                title=song['title'],
-                artist=song.get('artists', [{'name': 'Unknown'}])[0]['name'],
-                thumbnail=song['thumbnails'][0]['url']
-            )
+        for song in playlist.get_tracks():
+            song_card = PlaylistSongCard(song)
             self.ids.songs_container.add_widget(song_card)

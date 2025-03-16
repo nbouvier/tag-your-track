@@ -13,15 +13,8 @@ class ImportDialog(MDDialog):
         
     def on_pre_open(self):
         self.ids.playlist_list.clear_widgets()
-
         for playlist in self.app.playlists:
-            playlist_card = ImportPlaylistCard(
-                playlist_id=playlist['playlistId'],
-                title=playlist['title'],
-                tracks=playlist['count'],
-                thumbnail=playlist['thumbnails'][0]['url'],
-                on_import_callback=self.on_import_callback
-            )
+            playlist_card = ImportPlaylistCard(playlist, self.on_import_callback)
             self.ids.playlist_list.add_widget(playlist_card)
     
         # Bug fixing dialog height
